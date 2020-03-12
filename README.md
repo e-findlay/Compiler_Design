@@ -20,6 +20,8 @@ Checks are also made to ensure that predicates, constants, variables, equality a
 
 The program ensures that predicates contain square brackets and that the value inside the square brackets is an integer.
 
+If the input contains a valid formula as a prefix in its formula but the entire input formula is not valid, an error will be written to the log file. This error will be of the form `Error: Additional characters found at the end of formula that were not matched in parsing`.
+
 ## Valid Formula
 
 If the formula is valid, the program will write the formula to the log file. For the formula `\forall x ( \exists y ( P ( x , y ) \implies \neg Q ( x ) ) \lor \exists z ( ( ( C = z ) \land Q ( z ) ) \land P ( x , z ) ) )`, the program will write `Success: The Formula: \forall x ( \exists y ( P ( x , y ) \implies \neg Q ( x ) ) \lor \exists z ( ( ( C = z ) \land Q ( z ) ) \land P ( x , z ) ) ) is valid` to the log file.
