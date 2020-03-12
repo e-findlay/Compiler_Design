@@ -98,33 +98,40 @@ def generateGrammar():
         print('Error: Incorrect number of quantifiers')
         sys.exit()
 
-    vcp_pattern = re.compile('([A-Z]|[a-z]|[0-9]|_)+')
-    connective_pattern = re.compile('([A-Z]|[a-z]|[0-9]|_|\\\)+')
-    equality_pattern = re.compile('([A-Z]|[a-z]|[0-9]|_|=|\\\)+')
-    
+    # Check variables only contain letters, numbers and _
     for variable in variables:
-        if not vcp_pattern.match(variable):
-            message = "Error: variable {} can only contain letters, numbers and underscores".format(variable)
-            writeToLog(message)
-            sys.exit()
+        non_alpha = re.sub("\w+", "", variable)
+        for char in non_alpha:
+            if char not in ['_']:
+                message = "Error: variable {} can only contain letters, numbers and underscores".format(variable)
+                writeToLog(message)
+                sys.exit()
 
+    # Check constants only contain letters, numbers and _
     for constant in constants:
-        if not vcp_pattern.match(constant):
-            message = "Error: constant {} can only contain letters, numbers and underscores".format(constant)
+        non_alpha = re.sub("\w+", "", constant)
+        for char in non_alpha:
+            if char not in ['_']:
+                message = "Error: constant {} can only contain letters, numbers and underscores".format(constant)
+                writeToLog(message)
+                sys.exit()
+            
+    # Check equality only contains letters, numbers, \, = and _
+    non_alpha = re.sub("\w+", "", equality[0])
+    for char in non_alpha:
+        if char not in ['\\', '_', '=']:
+            message = "Error: equality {} can only contain letters, numbers, _, \\ or =".format(equality[0])
             writeToLog(message)
             sys.exit()
             
-    if not equality_pattern.match(equality[0]):
-        message = "Error: equality {} can only contain letters, numbers, _, \\ or =".format(equality[0])
-        writeToLog(message)
-        sys.exit()
-        
+    # Check connectives only contain letters, \, numbers and _
     for connective in connectives:
-        if not connective_pattern.match(connective):
-            message = "Error: connective {} can only contain letters, numbers, _ or \\".format(connective)
-            print(message)
-            writeToLog(message)
-            sys.exit()
+        non_alpha = re.sub("\w+", "", connective)
+        for char in non_alpha:
+            if char not in ['\\', '_']:
+                message = "Error: connective {} can only contain letters, numbers, _ or \\".format(connective)
+                writeToLog(message)
+                sys.exit()
         
     non_terminals = ['<Start>', '<Quantifier>', '<Predicate>', '<Equality>', '<Constant>', '<Variable>', '<Connective>', '<Terminal>', '<Bracketed>']
 
@@ -158,6 +165,15 @@ def generateGrammar():
             sys.exit()
         atom = name + '(' + '<Variable>,' * (num-1) + '<Variable>' + ')'
         production_rules['<Predicate>'].append(atom)
+
+    # check predicates only contain alphanumeric chars or _ chars
+    for predicate in predicate_symbol:
+        non_alpha = re.sub("\w+", "", predicate)
+        for char in non_alpha:
+            if char not in ['_']:
+                message = "Error: predicate {}() can only contain letters, numbers and underscores".format(predicate)
+                writeToLog(message)
+                sys.exit()
         
     # Check predicates, variables and constants do not have any names in common
     commonNames('variables', variables, 'constants', constants)
