@@ -449,7 +449,7 @@ class Parser():
             self.lookahead = formula[self.index]
             self.start()
         except:
-            message = "Syntax Error: Incomplete formula caused parser to run out of characters"
+            message = "Syntax Error: Incomplete formula caused parser to exceed final term"
             writeToLog(message)
             sys.exit()
 
