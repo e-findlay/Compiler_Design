@@ -56,24 +56,34 @@ def generateGrammar():
                 terms.append(line)
             else:
                 terms[-1][1] = value + line
-                value = terms[-1]
-                
+                value = terms[-1][1]
+    # Check field names are present and valid
+    V, C, P, E, CONN, Q, F = False, False, False, False, False, False, False  
     for term in terms:
         if term[0] == 'variables':
+            V = True
             variables = term[1].split()
         if term[0] == 'constants':
+            C = True
             constants = term[1].split()
         if term[0] == 'predicates':
+            P = True
             predicates = term[1].split()
         if term[0] == 'equality':
+            E = True
             equality = term[1].split()
         if term[0] == 'connectives':
+            CONN = True
             connectives = term[1].split()
         if term[0] == 'quantifiers':
+            Q = True
             quantifiers = term[1].split()
         if term[0] == 'formula':
+            F = True
             formula = term[1].split()
-
+    if not V or not C or not P or not E or not CONN or not Q or not F:
+        writeToLog("Error invalid or missing field names")
+        sys.exit()
     # Check predicates contain [int]
     for predicate in predicates:
         if not bool(re.search('\[\d+\]', predicate)):
@@ -435,8 +445,13 @@ class Parser():
         return False
 
     def parse(self):
-        self.lookahead = formula[self.index]
-        self.start()
+        try:
+            self.lookahead = formula[self.index]
+            self.start()
+        except:
+            message = "Syntax Error: Incomplete formula caused parser to run out of characters"
+            writeToLog(message)
+            sys.exit()
 
     def match(self, terminal, parent):
         self.counter += 1
@@ -445,7 +460,7 @@ class Parser():
                 self.nodes['var' + str(self.counter)] = Node('\\' + terminal, parent)
             else:
                 self.nodes['var' + str(self.counter)] = Node(terminal, parent)
-            lookahead = self.nextTerminal()
+            self.nextTerminal()
         else:
             print("Syntax Error")
             message = "Syntax Error: {} at position {} could not be parsed".format(self.lookahead, self.index)
