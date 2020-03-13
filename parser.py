@@ -345,7 +345,7 @@ class Parser():
 
     def bracketed(self, parent):
         self.counter += 1
-        self.nodes['var' + str(self.counter)] = Node('>Bracketed>', parent)
+        self.nodes['var' + str(self.counter)] = Node('<Bracketed>', parent)
         parent = self.nodes['var' + str(self.counter)]
         if self.term(parent):
             self.equality(parent)
