@@ -27,6 +27,8 @@ The program ensures that predicates contain square brackets and that the value i
 
 If the input contains a valid formula as a prefix in its formula but the entire input formula is not valid, an error will be written to the log file. This error will be of the form `Error: Additional characters found at the end of formula that were not matched in parsing`.
 
+If the input formula is a prefix of a valid formula, the pointer of the parser will go past the last term in the formula the program will write an error to parser.log stating: `Syntax Error: Incomplete formula caused parser to exceed final term`
+
 ## Valid Formula
 
 If the formula is valid, the program will write the formula to the log file. For the formula `\forall x ( \exists y ( P ( x , y ) \implies \neg Q ( x ) ) \lor \exists z ( ( ( C = z ) \land Q ( z ) ) \land P ( x , z ) ) )`, the program will write `Success: The Formula: \forall x ( \exists y ( P ( x , y ) \implies \neg Q ( x ) ) \lor \exists z ( ( ( C = z ) \land Q ( z ) ) \land P ( x , z ) ) ) is valid` to the log file.
