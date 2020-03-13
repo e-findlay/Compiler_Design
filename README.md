@@ -1,6 +1,9 @@
 # Compiler_Design
 
-The parser.py file uses the os, re and sys standard python modules. In addition to these, the file also requires graphviz and the anytree library be installed.
+The parser.py file uses the os, re and sys standard python modules. In addition to these, the file also requires graphviz and the anytree library be installed. The program can be run from the command line using `python parser.py filename`. The program will write Error or Success messages to parser.log and will write the grammar generated to grammar.txt if it encounters no errors before grammar generation.
+
+### Installing Graphviz
+To install graphviz for Windows, go to https://graphviz.gitlab.io and select Stable 2.38 Windows install packages. Select graphviz-2.38.msi and run the installation. Set the path variable to the location of the graphviz binary on your machine (the default is C:\Program Files (x86)\Graphviz2.38\bin) and restart your machine.
 
 After installing graphviz, the anytree package can be installed using the command `pip install anytree`.
 
