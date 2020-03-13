@@ -171,7 +171,7 @@ def generateGrammar():
         non_alpha = re.sub("\w+", "", predicate)
         for char in non_alpha:
             if char not in ['_']:
-                message = "Error: predicate {}() can only contain letters, numbers and underscores".format(predicate)
+                message = "Error: predicate {} can only contain letters, numbers and underscores".format(predicate)
                 writeToLog(message)
                 sys.exit()
         
@@ -285,7 +285,7 @@ def generateGrammar():
     writeGrammar('<Variable> -> ' + '|'.join(production_rules['<Variable>']))
     writeGrammar('<Constant> -> ' + '|'.join(production_rules['<Constant>']))
     writeGrammar('<Predicate> -> ' + '|'.join(production_rules['<Predicate>']))
-    writeGrammar('<Connective> -> ' + '|'.join(production_rules['<Connective>']))
+    writeGrammar('<Connective> -> ' + '|'.join(production_rules['<Connective>']) + '\n')
 
     # return production_rules, non-terminal symbols and the input formula to be parsed
     return formula, production_rules, non_terminals
@@ -472,9 +472,6 @@ if parser.index < parser.length:
 elif parser.valid:
     writeToLog("Success: The Formula: {} is valid".format(' '.join(formula)))
 
-# add dot to path
-#c:\Program Files (x86)\Graphviz*\dot.exe on Windows
-os.environ["PATH"] += ":"+"/usr/local/bin"
 if len(sys.argv) > 1:
     file_name = sys.argv[1]
 else:
