@@ -40,7 +40,7 @@ Non Terminal Symbols: <Start> <Quantifier> <Predicate> <Equality> <Constant> <Va
 Terminal Symbols: == AND OR IMPLIES IFF NOT price cost1 30 Z E A Same Non_zero notEqual ( ) ,
 
 Production Rules:<br/>
-<Start> -> <Predicate>|(<Bracketed>|<Quantifier><Variable><Start>|NOT<Start><br/>
+&ltStart&gt -> &ltPredicate&gt|(&ltBracketed&gt|&ltQuantifier&gt&ltVariable&gt&ltStart&gt|NOT&ltStart&gt<br/>
 <Bracketed> -> <Start><Connective><Start>)|<Terminal><Equality><Terminal>)<br/>
 <Equality> -> == <br/>
 <Terminal> -> <Constant>, <Variable><br/>
